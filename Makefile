@@ -14,5 +14,5 @@ clean:
 
 ripe_attack_generator: ./source/ripe_attack_generator.c
 	mkdir -p build/ out/
-	$(CC) -m32 \
+	$(CC) \
 		./source/ripe_attack_generator.c -o ./build/ripe_attack_generator

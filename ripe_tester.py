@@ -98,7 +98,7 @@ def is_attack_possible ( attack, tech, loc, ptr, func ):
 parser = argparse.ArgumentParser(description='frontend for RIPE')
 parser.add_argument('-t', help='Techniques [direct|indirect|both] (both by default)', default='both')
 parser.add_argument('-f', help='Run tests with all functions (memcpy() only by default)', default=False, action='store_true')
-parser.add_argument('-r', help='Simulator command', default='spike', action='store_true')
+parser.add_argument('-r', help='Simulator command', default='spike pk', action='store_true')
 parser.add_argument('-o', help='Send output to file (default stdout)', nargs=1)
 args = parser.parse_args()
 
@@ -138,7 +138,7 @@ for attack in attacks:
 			for ptr in code_ptr:
 				for func in funcs:
 					os.system('rm -f out/out.text')
-					cmdargs = '-t ' + tech + ' -i ' + attack + ' -c ' + ptr + ' -l ' + loc + ' -f ' + func
+					cmdargs = 'build/ripe_attack_generator ' + '-t ' + tech + ' -i ' + attack + ' -c ' + ptr + ' -l ' + loc + ' -f ' + func
 					cmdline= run_cmd + ' ' + cmdargs + ' 1> out/out.text 2>/dev/null'
 
 					if is_attack_possible (attack, tech, loc, ptr, func) == 0:
@@ -166,7 +166,8 @@ for attack in attacks:
 							total_fail += 1
 
 						# print attack
-						print_attack(cmdargs, status)
+#						print_attack(cmdargs, status)
+						print(cmdargs, status)
 
 # do summary
 total_attacks = total_ok + total_fail;
